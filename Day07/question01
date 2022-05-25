@@ -1,0 +1,58 @@
+# -Day07SummerChallenge24thMay2k22
+Question 01 : LeetCode 89 Game of life 
+Solution : 
+
+class Solution {
+    public void gameOfLife(int[][] board) {
+             int[][] steps = {{1,0},{-1,0},{0,1},{0,-1},{-1,-1},{1,1},{1,-1},{-1,1}};
+        int[][] newboard = new int[board.length][board[0].length];
+        
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                //count live around that position
+                int live = 0;
+                //count dead around that position
+                int dead = 0;
+                for(int si=0;si<steps.length;si++){
+                    int[] step = steps[si];
+                    int nx = i+step[0];
+                    int ny = j+step[1];
+                    if(nx>=0 && ny>=0 && ny<board[0].length && nx<board.length){
+                        if(board[nx][ny] == 0) dead++;
+                        else live++;
+                    }
+                }
+                //if that person is live
+                if(board[i][j] == 1){
+                    //1.
+                    if(live < 2){
+                        newboard[i][j] = 0;
+                    }
+                    //2
+                    else if(live == 2 || live == 3){
+                        newboard[i][j] = board[i][j];
+                    }
+                    //3
+                    else if(live > 3){
+                        newboard[i][j] = 0;
+                    }
+                }
+                //if that person is dead
+                else{
+                    //4
+                    if(live == 3){
+                        newboard[i][j] = 1;
+                    }
+                }
+            }
+        }
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                board[i][j] = newboard[i][j];
+            }
+        }
+    
+
+        
+    }
+}
